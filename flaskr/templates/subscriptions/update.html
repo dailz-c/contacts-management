@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit {{ name }} List{% endblock %}</h1>
+<a class="action" href="{{ url_for('contactsmanagement.index') }}">Back to Subscription Lists</a>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+<script src="/static/js/modal.js"></script>
+{% endblock %}
+
+
+{% block content %}
+{% if contacts %}
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Delete?</th>
+    </tr>
+    {% for contact in contacts %}
+    <tr>
+        <td>{{ contact['f_name'] }} {{ contact['l_name'] }}</td>
+        <td>{{ contact['email'] }}</td>
+        <td><a href="{{ url_for('contactsmanagement.delete_contact', id=id, contact_id = contact['id']) }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<button id="AddContact">Add Contact</button>
+{% else %}
+<p>You have no Contacts in this subscription list!</p>
+<button id="AddContact">Add Contact</button>
+{% endif %}
+<br>
+<br>
+<a href="{{ url_for('contactsmanagement.delete_subscription', id=id) }}" id="confirm" onclick="return confirm('Are you sure you want to delete this list?')">Delete Subscription List?</a>
+
+<div class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+      <h3>Add Contact</h3>
+      <form method="post" action="/{{ id }}/update">
+          <label for="f_name">First Name</label>
+          <input name="f_name" id="f_name">
+
+          <label for="l_name">Last Name</label>
+          <input name="l_name" id="l_name">
+
+          <label for="email">Email</label>
+          <input name="email" type="email" id="email">
+
+          <input name="subscription" id="subscription" style="display:none" value="{{ id }}">
+
+          <input type="submit">
+      </form>
+  </div>
+</div>
+{% endblock %}

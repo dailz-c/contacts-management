@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Subscriptions{% endblock %}</h1>
+  {% if g.user %}
+<a class="action" href="{{ url_for('contactsmanagement.create') }}">Create a new Subscription</a>
+
+
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for subscription in subscriptions %}
+    <article class="subscriptions">
+      <header>
+
+          <h3>{{ subscription['name'] }}</h3>
+          <span><i>Subscription Manager:</i> {{ subscription['f_name'] }} {{ subscription['l_name'] }}</span> <a href="mailto:{{ subscription['email'] }}">{{ subscription['email'] }}</a>
+
+        {% if g.user['id'] == subscription['owner_id'] %}
+          <a class="action" href="{{ url_for('contactsmanagement.update', id=subscription['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
