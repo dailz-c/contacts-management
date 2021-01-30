@@ -2,7 +2,7 @@
 
 <p>This is a basic flask application that allows to manage contacts in an sqlite database</p>
 
-To run the app in locally
+To run the app locally, run the following in the command line (after installing python, flask, and other dependencies.)
 ```Command Line
 flask init-db
 cd flaskr
