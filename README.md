@@ -4,6 +4,7 @@
 
 To run the app in locally
 ```Command Line
+flask init-db
 cd flaskr
 flask run
 ```
